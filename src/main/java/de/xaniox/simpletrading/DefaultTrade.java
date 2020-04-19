@@ -675,11 +675,15 @@ public class DefaultTrade implements Trade {
 		if (initiator.getMoneyOffer() > 0) {
 			econ.withdrawPlayer(initiatorPlayer, initiator.getMoneyOffer());
 			econ.depositPlayer(partnerPlayer, initiator.getMoneyOffer());
+			Bukkit.getPluginManager().callEvent(new TradeMoneyTransactionEvent(System.currentTimeMillis(), initiatorPlayer.getUniqueId(), partnerPlayer.getName(), - initiator.getMoneyOffer()));
+			Bukkit.getPluginManager().callEvent(new TradeMoneyTransactionEvent(System.currentTimeMillis(), partnerPlayer.getUniqueId(), initiatorPlayer.getName(), initiator.getMoneyOffer()));
 		}
 		
 		if (partner.getMoneyOffer() > 0) {
 			econ.withdrawPlayer(partnerPlayer, partner.getMoneyOffer());
 			econ.depositPlayer(initiatorPlayer, partner.getMoneyOffer());
+			Bukkit.getPluginManager().callEvent(new TradeMoneyTransactionEvent(System.currentTimeMillis(), partnerPlayer.getUniqueId(), initiatorPlayer.getName(), - partner.getMoneyOffer()));
+			Bukkit.getPluginManager().callEvent(new TradeMoneyTransactionEvent(System.currentTimeMillis(), initiatorPlayer.getUniqueId(), partnerPlayer.getName(), partner.getMoneyOffer()));
 		}
 		
 		if (initiator.getExpOffer() > 0) {
